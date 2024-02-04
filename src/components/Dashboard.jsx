@@ -107,9 +107,10 @@ function Dashboard() {
           <td>{user.lastName}</td>
           <td>{user.email}</td>
           <td>{user.batch}</td>
-          <td>
+          <td id='dashTD'>
             {/* Use the navigate function for better routing */}
             <Button onClick={() => navigate(`/edit-user/${user._id}`)}>Edit</Button>{' '}
+            <Button variant='success' onClick={() => navigate(`/users/change-password/${user._id}`)}>Change Password</Button>{' '}
             <Button variant="danger" onClick={() => handleOpenConfirmation(user)}>
               Delete
             </Button>
@@ -136,7 +137,7 @@ function Dashboard() {
               <th>Last Name</th>
               <th>Email</th>
               <th>Batch</th>
-              <th>Action</th>
+              <th style={{textAlign: 'center'}}>Action</th>
             </tr>
           </thead>
           <tbody>{userRows}</tbody>

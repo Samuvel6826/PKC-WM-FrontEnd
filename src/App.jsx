@@ -7,6 +7,7 @@ import Edit from './components/EditUser';
 import Bins from './components/Bins';
 import CreateBin from './components/CreateBin';
 import EditBin from './components/EditBin';
+import ChangePassword from './components/ChangePassword';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
 
           {/* Route for editing a bin, dynamic ID provided */}
           <Route path='/users/edit-bin/:id' element={<EditBin />} />
+
+          {/* Route for changing user password, dynamic ID provided */}
+          <Route path='/users/change-password/:id' element={<ChangePassword />} />
 
           {/* Route for creating a new bin */}
           <Route path='/users/create-bin' element={<CreateBin />} />

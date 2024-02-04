@@ -135,3 +135,16 @@ margin: 0;
   justify-content: center;
   flex-direction: column;
 }
+
+#menubarCTN {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#dashTD {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}

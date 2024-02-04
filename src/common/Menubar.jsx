@@ -24,13 +24,20 @@ function Menubar() {
   // Simplify the rendering of the Navbar
   const renderNavbar = (links) => (
     <Navbar bg="dark" data-bs-theme="dark">
-      <Container>
+      <Container id="menubarCTN">
+
         <a href="/dashboard" style={{ textDecoration: 'none' }}>
-          <Navbar.Brand>
+          <Navbar.Brand style={{fontSize: '2rem'}}>
             Waste Management System
           </Navbar.Brand>
         </a>
-        <Nav className="me-auto">{links}</Nav>
+
+        <Nav style={{fontSize: '1.3rem'}}>{links}</Nav>
+
+        <Button style={{fontSize: '1.3rem'}} variant="danger" onClick={logout}>
+        Logout
+      </Button>
+
       </Container>
     </Navbar>
   );
@@ -50,14 +57,9 @@ function Menubar() {
       <Link to="/users/create-bin" className="nav-link">
         Create Bin
       </Link>
-      <Button variant="danger" onClick={logout}>
-        Logout
-      </Button>
     </>
   ) : (
-    <Button variant="danger" onClick={logout}>
-      Logout
-    </Button>
+    <></>
   );
 
   return <div>{renderNavbar(links)}</div>;
