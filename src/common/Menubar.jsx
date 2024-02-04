@@ -25,9 +25,11 @@ function Menubar() {
   const renderNavbar = (links) => (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand as={Link} to="/dashboard">
-          Waste Management System
-        </Navbar.Brand>
+        <a href="/dashboard" style={{ textDecoration: 'none' }}>
+          <Navbar.Brand>
+            Waste Management System
+          </Navbar.Brand>
+        </a>
         <Nav className="me-auto">{links}</Nav>
       </Container>
     </Navbar>
