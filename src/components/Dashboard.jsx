@@ -102,11 +102,13 @@ function Dashboard() {
       data.map((user, index) => (
         <tr key={user._id}>
           <td>{index + 1}</td>
+          <td>{user.role}</td>
           <td>{user.firstName}</td>
           <td>{user.lastName}</td>
           <td>{user.email}</td>
           <td>{user.batch}</td>
           <td>
+            {/* Use the navigate function for better routing */}
             <Button onClick={() => navigate(`/edit-user/${user._id}`)}>Edit</Button>{' '}
             <Button variant="danger" onClick={() => handleOpenConfirmation(user)}>
               Delete
@@ -129,6 +131,7 @@ function Dashboard() {
           <thead>
             <tr>
               <th>#</th>
+              <th>Role</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>

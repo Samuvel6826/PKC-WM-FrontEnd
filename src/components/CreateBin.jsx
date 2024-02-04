@@ -33,14 +33,19 @@ function CreateBin() {
       const res = await axios.post(`${process.env.VITE_API_URL}/bins`, values);
 
       if (res.status === 200) {
+        // Display success message using toast
         toast.success(res.data.message);
+        // Reset the form after successful submission
         resetForm();
+        // Navigate to the bins list page
         navigate('/users/bins');
       }
     } catch (error) {
+      // Log an error and display an error message using toast
       console.error('Error in onSubmit:', error);
       toast.error(error.response.data.message);
     } finally {
+      // Set submitting to false after submission (success or error)
       setSubmitting(false);
     }
   };
@@ -55,6 +60,7 @@ function CreateBin() {
   return (
     <>
       <div>
+        {/* Display the Menubar with the title 'Create Bin' */}
         <Menubar title={'Create Bin'} />
         <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>Create Bin</h2>
 
@@ -62,7 +68,7 @@ function CreateBin() {
           {/* Formik form */}
           <Form onSubmit={formik.handleSubmit}>
             <Form.Group className="mb-3">
-          <Form.Label htmlFor="binName">Bin ID</Form.Label>
+              <Form.Label htmlFor="binName">Bin ID</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Bin Name"
@@ -71,6 +77,7 @@ function CreateBin() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              {/* Display error message if binName field is touched and has an error */}
               {formik.touched.binName && formik.errors.binName && (
                 <div className="error" style={{ color: 'red' }}>
                   {formik.errors.binName}*
@@ -79,7 +86,7 @@ function CreateBin() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-          <Form.Label htmlFor="binLocation">Location</Form.Label>
+              <Form.Label htmlFor="binLocation">Location</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Bin Location"
@@ -88,6 +95,7 @@ function CreateBin() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              {/* Display error message if binLocation field is touched and has an error */}
               {formik.touched.binLocation && formik.errors.binLocation && (
                 <div className="error" style={{ color: 'red' }}>
                   {formik.errors.binLocation}*
@@ -97,7 +105,7 @@ function CreateBin() {
 
             {/* Updated binColor field to a dropdown */}
             <Form.Group className="mb-3">
-          <Form.Label htmlFor="binColor">Type</Form.Label>
+              <Form.Label htmlFor="binColor">Type</Form.Label>
               <Form.Select
                 name="binColor"
                 value={formik.values.binColor}
@@ -109,6 +117,7 @@ function CreateBin() {
                 <option value="yellow">Blue - Paper Waste</option>
                 <option value="red">Red - E-Waste</option>
               </Form.Select>
+              {/* Display error message if binColor field is touched and has an error */}
               {formik.touched.binColor && formik.errors.binColor && (
                 <div className="error" style={{ color: 'red' }}>
                   {formik.errors.binColor}*
@@ -118,6 +127,7 @@ function CreateBin() {
 
             <div className="text-center">
               <Button variant="primary" type="submit" style={{ width: '35%' }}>
+                {/* Display loader while submitting or 'Submit' text otherwise */}
                 {formik.isSubmitting ? <Loader /> : <>Submit</>}
               </Button>
             </div>

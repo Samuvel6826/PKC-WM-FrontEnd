@@ -16,7 +16,10 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().required('Password is required'),
   batch: Yup.string().required('Batch is required'),
+  role: Yup.string(),
 });
+
+const roleOptions = ['user', 'admin'];
 
 function CreateUser() {
   const navigate = useNavigate();
@@ -29,20 +32,30 @@ function CreateUser() {
       email: '',
       password: '',
       batch: '',
+      role: '',
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       try {
         setSubmitting(true);
+
+        // Set default value 'user' if role is not provided
+        values.role = values.role || 'user';
+
         const res = await axios.post(`${process.env.VITE_API_URL}/users`, values);
 
         if (res.status === 200) {
+          // Display success message using toast
           toast.success(res.data.message);
+          // Navigate to the dashboard after successful submission
           navigate('/dashboard');
         }
       } catch (error) {
+        // Log an error and display an error message using toast
+        console.error('Error in onSubmit:', error);
         toast.error(error.response.data.message);
       } finally {
+        // Set submitting to false after submission (success or error)
         setSubmitting(false);
       }
     },
@@ -50,13 +63,16 @@ function CreateUser() {
 
   return (
     <div>
+      {/* Display the Menubar with the title 'Create User' */}
       <Menubar title={'Create User'} />
-      <h2 style={{ margin: '1rem 0 2rem 0' }} className="text-center mb-4">Create User</h2>
+      <h2 style={{ margin: '1rem 0 2rem 0' }} className="text-center mb-4">
+        Create User
+      </h2>
       <div className="container-fluid" style={{ width: '60%' }}>
         {/* Formik form */}
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3">
-          <Form.Label htmlFor="firstName">First Name</Form.Label>
+            <Form.Label htmlFor="firstName">First Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter First Name"
@@ -65,6 +81,7 @@ function CreateUser() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            {/* Display error message if firstName field is touched and has an error */}
             {formik.touched.firstName && formik.errors.firstName ? (
               <div className="error" style={{ color: 'red' }}>
                 {formik.errors.firstName}*
@@ -73,7 +90,7 @@ function CreateUser() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-          <Form.Label htmlFor="lastName">Last Name</Form.Label>
+            <Form.Label htmlFor="lastName">Last Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter Last Name"
@@ -82,6 +99,7 @@ function CreateUser() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            {/* Display error message if lastName field is touched and has an error */}
             {formik.touched.lastName && formik.errors.lastName ? (
               <div className="error" style={{ color: 'red' }}>
                 {formik.errors.lastName}*
@@ -90,7 +108,7 @@ function CreateUser() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-          <Form.Label htmlFor="email">Email ID</Form.Label>
+            <Form.Label htmlFor="email">Email ID</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter Email"
@@ -99,6 +117,7 @@ function CreateUser() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            {/* Display error message if email field is touched and has an error */}
             {formik.touched.email && formik.errors.email ? (
               <div className="error" style={{ color: 'red' }}>
                 {formik.errors.email}*
@@ -107,7 +126,7 @@ function CreateUser() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-          <Form.Label htmlFor="password">Password</Form.Label>
+            <Form.Label htmlFor="password">Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter Password"
@@ -116,6 +135,7 @@ function CreateUser() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            {/* Display error message if password field is touched and has an error */}
             {formik.touched.password && formik.errors.password ? (
               <div className="error" style={{ color: 'red' }}>
                 {formik.errors.password}*
@@ -124,7 +144,7 @@ function CreateUser() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-          <Form.Label htmlFor="batch">Batch</Form.Label>
+            <Form.Label htmlFor="batch">Batch</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter Batch"
@@ -133,6 +153,7 @@ function CreateUser() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            {/* Display error message if batch field is touched and has an error */}
             {formik.touched.batch && formik.errors.batch ? (
               <div className="error" style={{ color: 'red' }}>
                 {formik.errors.batch}*
@@ -140,8 +161,33 @@ function CreateUser() {
             ) : null}
           </Form.Group>
 
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="role">Role</Form.Label>
+            <Form.Control
+              as="select"
+              name="role"
+              value={formik.values.role}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              {/* Map through roleOptions to create dropdown options */}
+              {roleOptions.map((role) => (
+                <option key={role} value={role}>
+                  {role.charAt(0).toUpperCase() + role.slice(1)} {/* Capitalize the first letter */}
+                </option>
+              ))}
+            </Form.Control>
+            {/* Display error message if role field is touched and has an error */}
+            {formik.touched.role && formik.errors.role ? (
+              <div className="error" style={{ color: 'red' }}>
+                {formik.errors.role}*
+              </div>
+            ) : null}
+          </Form.Group>
+
           <div className="text-center">
             <Button variant="primary" type="submit" style={{ width: '35%' }}>
+              {/* Display loader while submitting or 'Submit' text otherwise */}
               {formik.isSubmitting ? <Loader /> : <>Submit</>}
             </Button>
           </div>

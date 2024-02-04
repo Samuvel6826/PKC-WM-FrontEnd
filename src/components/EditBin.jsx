@@ -70,14 +70,14 @@ const EditBin = () => {
   return (
     <>
       <div>
-        <Menubar title={'Create Bin'} />
+        <Menubar title={'Edit Bin'} />
         <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>Edit Bin</h2>
 
         <div className="container-fluid" style={{ width: '60%', margin: '0 auto' }}>
           {/* Formik form */}
           <Form onSubmit={formik.handleSubmit}>
             <Form.Group className="mb-3">
-          <Form.Label htmlFor="binName">Bin ID</Form.Label>
+              <Form.Label htmlFor="binName">Bin ID</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Bin Name"
@@ -94,7 +94,7 @@ const EditBin = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-          <Form.Label htmlFor="binLocation">Location</Form.Label>
+              <Form.Label htmlFor="binLocation">Location</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Bin Location"
@@ -112,7 +112,7 @@ const EditBin = () => {
 
             {/* Updated binColor field to a dropdown */}
             <Form.Group className="mb-3">
-          <Form.Label htmlFor="binColor">Type</Form.Label>
+              <Form.Label htmlFor="binColor">Type</Form.Label>
               <Form.Select
                 name="binColor"
                 value={formik.values.binColor}
@@ -133,7 +133,7 @@ const EditBin = () => {
 
             <div className="text-center">
               <Button variant="primary" type="submit" style={{ width: '35%' }}>
-                {formik.isSubmitting ? <Loader /> : <>Submit</>}
+                {isLoading ? <Loader /> : <>Submit</>}
               </Button>
             </div>
           </Form>

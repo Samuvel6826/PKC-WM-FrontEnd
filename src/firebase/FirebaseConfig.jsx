@@ -13,11 +13,11 @@ const firebaseConfig = {
   measurementId: process.env.VITE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
+// Initialize Firebase with the provided configuration
 const app = firebase.initializeApp(firebaseConfig);
 
 // Get a reference to the Firebase Realtime Database
 const database = app.database();
 
+// Export the initialized database instance
 export default database;
-
