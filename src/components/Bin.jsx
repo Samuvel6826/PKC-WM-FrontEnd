@@ -85,8 +85,8 @@ const Bin = React.memo(({ id, onDelete }) => {
   return (
     <>
       <div className='binCtn' style={{ backgroundColor: indicator }}>
-        <h3>Lid: {lidStatus}</h3>
-        <h3>Height: {binHeight} cm </h3>
+        {/* <h3>Lid: {lidStatus}</h3>
+        <h3>Height: {binHeight} cm </h3> */}
         <h3>Percentage: {binPercentage}% </h3>
         <div>
           <Button onClick={() => navigate(`/users/edit-bin/${id}`)}>Edit</Button>
